@@ -1,1 +1,90 @@
-<p>registro-usuario works!</p>
+<div class="min-h-screen flex items-center justify-center bg-[#011518] px-4">
+  <div class="max-w-md w-full space-y-8">
+
+    <div class="flex justify-center mb-10">
+      <div class="w-56 h-56 rounded-full overflow-hidden shadow-lg flex items-center justify-center">
+        <img src="assets/images/logo.png" alt="Logo" class="w-full h-full object-cover" />
+      </div>
+    </div>
+
+    <div class="bg-[#d8e5f3] rounded-xl shadow-xl p-8">
+      <h2 class="text-center text-[#011518] font-extrabold text-3xl mb-6">Registro</h2>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="space-y-6">
+
+        <div>
+          <label for="name" class="block text-[#011518] font-semibold mb-2">Nome</label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            placeholder="Seu nome"
+            class="appearance-none rounded-md relative block w-full px-4 py-3 text-[#011518] placeholder-[#011518] bg-white focus:outline-none focus:ring-2 focus:ring-[#011518] focus:border-transparent"
+          />
+          <div *ngIf="form.get('name')?.invalid && (form.get('name')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
+            Nome é obrigatório.
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-[#011518] font-semibold mb-2">Email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="Seu email"
+            class="appearance-none rounded-md relative block w-full px-4 py-3 text-[#011518] placeholder-[#011518] bg-white focus:outline-none focus:ring-2 focus:ring-[#011518] focus:border-transparent"
+          />
+          <div *ngIf="form.get('email')?.invalid && (form.get('email')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
+            Email inválido.
+          </div>
+        </div>
+
+        <div>
+          <label for="password" class="block text-[#011518] font-semibold mb-2">Senha</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Sua senha"
+            class="appearance-none rounded-md relative block w-full px-4 py-3 text-[#011518] placeholder-[#011518] bg-white focus:outline-none focus:ring-2 focus:ring-[#011518] focus:border-transparent"
+          />
+          <div *ngIf="form.get('password')?.invalid && (form.get('password')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
+            Senha é obrigatória.
+          </div>
+        </div>
+
+        <div>
+          <label for="cep" class="block text-[#011518] font-semibold mb-2">CEP</label>
+          <input
+            id="cep"
+            type="text"
+            formControlName="cep"
+            placeholder="Seu CEP"
+            class="appearance-none rounded-md relative block w-full px-4 py-3 text-[#011518] placeholder-[#011518] bg-white focus:outline-none focus:ring-2 focus:ring-[#011518] focus:border-transparent"
+          />
+          <div *ngIf="form.get('cep')?.invalid && (form.get('cep')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
+            CEP é obrigatório.
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="group relative w-full flex justify-center py-3 px-6 border border-transparent text-white font-bold rounded-md bg-[#011518] hover:bg-[#0d2a31] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#d8e5f3] transition"
+        >
+          Registrar
+        </button>
+
+        <p *ngIf="sucesso" class="mt-4 text-green-600 text-center font-semibold">
+          Usuário registrado com sucesso!
+        </p>
+
+      </form>
+
+      <p class="mt-6 text-center text-[#011518]">
+        Já tem conta?
+        <a routerLink="/login" class="font-semibold hover:underline hover:text-[#0d2a31]">Faça login</a>
+      </p>
+    </div>
+  </div>
+</div>
