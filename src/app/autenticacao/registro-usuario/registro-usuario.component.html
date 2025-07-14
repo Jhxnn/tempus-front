@@ -99,6 +99,12 @@
              class="fixed top-6 right-6 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in-out">
           ✅ Registro realizado com sucesso!
         </div>
+        <!-- Popup erro -->
+<div *ngIf="erro"
+     class="fixed top-6 right-6 z-50 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in-out">
+  ❌ {{ erro }}
+</div>
+
 
         <!-- Link -->
         <p class="mt-4 text-center text-[#011518] text-sm">

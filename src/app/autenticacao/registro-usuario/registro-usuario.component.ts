@@ -57,10 +57,14 @@ export class RegistroUsuarioComponent {
             this.router.navigate(['/login']);
           }, 2000);
         },
-        error: () => {
-          this.erro = 'Erro ao registrar';
-          this.carregando = false;
-        }
+      error: (err) => {
+  this.erro = err.error?.error || 'Erro ao registrar';
+  this.carregando = false;
+
+  setTimeout(() => {
+    this.erro = '';
+  }, 8000); // ← agora o erro ficará visível por 5 segundos
+}
       });
   }
 }
