@@ -12,7 +12,7 @@ export class LoginUsuarioComponent {
   enviado = false;
   erro = '';
   carregando = false;
-  mostrarSenha = false
+  mostrarSenha = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,29 +26,40 @@ export class LoginUsuarioComponent {
   }
 
   onSubmit() {
-  this.enviado = true;
-  if (this.form.invalid) return;
+    this.enviado = true;
+    if (this.form.invalid) return;
 
-  this.carregando = true;
-  this.erro = '';
+    this.carregando = true;
+    this.erro = '';
 
-  this.http.post<any>('https://tempus-api-yuma.onrender.com/api/v1/user/login', this.form.value)
-    .subscribe({
-      next: (res) => {
-        const token = res.token;
-        if (token) {
-          localStorage.setItem('token', token);
-          this.router.navigate(['/empresa']);
-        } else {
-          this.erro = 'Token inválido recebido.';
-        }
-        this.carregando = false;
-      },
-      error: (err) => {
-        this.erro = err.error?.error || 'Erro desconhecido';
-        this.carregando = false;
-      }
-    });
+    this.http.post<any>('https://tempus-api-yuma.onrender.com/api/v1/user/login', this.form.value)
+      .subscribe({
+        next: (res) => {
+  const token = res.token;
+  const nome = res.name
+  if (token) {
+    localStorage.setItem('token', token);
+    if (nome) {
+      localStorage.setItem('nome', nome);
+    }
+    this.router.navigate(['/empresa']);
+  } else {
+    this.exibirErro('Token inválido recebido.');
+  }
+  this.carregando = false;
 }
+,
+        error: (err) => {
+          this.exibirErro(err.error?.error || 'Erro ao fazer login');
+          this.carregando = false;
+        }
+      });
+  }
 
+  exibirErro(mensagem: string) {
+    this.erro = mensagem;
+    setTimeout(() => {
+      this.erro = '';
+    }, 8000); // 8 segundos
+  }
 }

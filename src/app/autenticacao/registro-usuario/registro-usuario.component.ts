@@ -63,7 +63,7 @@ export class RegistroUsuarioComponent {
 
   setTimeout(() => {
     this.erro = '';
-  }, 8000); // ← agora o erro ficará visível por 5 segundos
+  }, 8000); 
 }
       });
   }

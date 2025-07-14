@@ -74,10 +74,15 @@
           {{ carregando ? 'Entrando...' : 'Entrar' }}
         </button>
 
-        <!-- Erro -->
-        <div *ngIf="erro" class="fixed top-6 right-6 z-50 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg transition-opacity duration-500">
-  ❌ {{ erro }}
+
+<div *ngIf="erro"
+     class="fixed top-6 left-6 z-50 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in-out">
+  ✖️ {{ erro }}
 </div>
+
+        <!-- Erro -->
+    
+    
 
         <!-- Link para registro -->
         <p class="mt-6 text-center text-[#011518]">
@@ -88,6 +93,9 @@
     </div>
   </div>
 
+  <!-- Popup erro -->
+
+
   <!-- Coluna direita: Logo -->
   <div class="hidden md:flex w-1/2 bg-[#011518] items-center justify-center">
     <div class="flex flex-col items-center space-y-4 px-4">
@@ -97,7 +105,7 @@
         Acesse sua conta
       </h1>
       <p class="text-[#d8e5f3] text-center max-w-sm">
-        Gerencie os apontamentos da sua equipe de forma rápida, fácil e segura.
+        Gerencie os pontos da sua equipe de forma rápida, fácil e segura.
       </p>
     </div>
   </div>
