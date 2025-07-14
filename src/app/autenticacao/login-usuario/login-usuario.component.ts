@@ -11,6 +11,8 @@ export class LoginUsuarioComponent {
   form: FormGroup;
   enviado = false;
   erro = '';
+  carregando = false;
+  mostrarSenha = false;
 
   constructor(
     private fb: FormBuilder,
@@ -25,16 +27,21 @@ export class LoginUsuarioComponent {
 
   onSubmit() {
     this.enviado = true;
+    this.erro = '';
     if (this.form.invalid) return;
 
-    this.http.post<any>('https://tempus-api-yuma.onrender.com/api/v1/login', this.form.value)
+    this.carregando = true;
+
+    this.http.post<any>('https://tempus-api-yuma.onrender.com/api/v1/user/login', this.form.value)
       .subscribe({
         next: (res) => {
           localStorage.setItem('token', res.token);
-          this.router.navigate(['/empresa']); // ajuste o caminho após login
+          this.router.navigate(['/empresa']); // ajuste a rota conforme seu layout
+          this.carregando = false;
         },
         error: () => {
           this.erro = 'Credenciais inválidas ou erro no servidor.';
+          this.carregando = false;
         }
       });
   }

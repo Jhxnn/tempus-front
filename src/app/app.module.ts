@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AutenticacaoModule } from './autenticacao/autenticacao.module';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -14,9 +15,10 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     AutenticacaoModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxMaskDirective
   ],
-  providers: [],
+  providers: [provideNgxMask()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

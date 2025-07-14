@@ -1,66 +1,103 @@
-<div class="min-h-screen flex items-center justify-center bg-[#011518] px-4">
-  <div class="max-w-md w-full space-y-8">
+<div class="min-h-screen flex bg-[#011518] text-[#011518]">
 
-<!-- Espaço para logo -->
-<div class="flex justify-center mb-10">
-  <div class="w-56 h-56 rounded-full overflow-hidden shadow-lg flex items-center justify-center">
-    <img src="assets/images/logo.png" alt="Logo" class="w-full h-full object-cover" />
-  </div>
-</div>
-
-
-
-
-
-    <!-- Card do formulário -->
-    <div class="bg-[#d8e5f3] rounded-xl shadow-xl p-8">
-      <h2 class="text-center text-[#011518] font-extrabold text-3xl mb-6">Bem-vindo</h2>
+  <!-- Coluna esquerda: Formulário -->
+  <div class="w-full md:w-1/2 flex items-center justify-center px-4">
+    <div class="bg-[#d8e5f3] rounded-xl shadow-xl p-8 w-full max-w-md">
+      <h2 class="text-center text-[#011518] font-extrabold text-3xl mb-6">Bem-vindo de volta</h2>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="space-y-6">
-        
+
+        <!-- Campo email -->
         <div>
-          <label for="email" class="block text-[#011518] font-semibold mb-2">Email</label>
+          <label for="email" class="block font-semibold mb-2">Email</label>
           <input
             id="email"
             type="email"
             formControlName="email"
-            placeholder="Digite seu email"
-            class="appearance-none rounded-md relative block w-full px-4 py-3 text-[#011518] placeholder-[#011518] bg-white focus:outline-none focus:ring-2 focus:ring-[#011518] focus:border-transparent"
+            placeholder="Seu email"
+            class="w-full px-4 py-3 bg-white rounded-md placeholder:opacity-60 placeholder-[#011518] text-[#011518] focus:outline-none focus:ring-2 focus:ring-[#011518]"
           />
           <div *ngIf="form.get('email')?.invalid && (form.get('email')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
             Email inválido.
           </div>
         </div>
 
-        <div>
-          <label for="password" class="block text-[#011518] font-semibold mb-2">Senha</label>
+        <!-- Campo senha -->
+        <div class="relative">
+          <label for="password" class="block font-semibold mb-2">Senha</label>
           <input
             id="password"
-            type="password"
+            [type]="mostrarSenha ? 'text' : 'password'"
             formControlName="password"
-            placeholder="Digite sua senha"
-            class="appearance-none rounded-md relative block w-full px-4 py-3 text-[#011518] placeholder-[#011518] bg-white focus:outline-none focus:ring-2 focus:ring-[#011518] focus:border-transparent"
+            placeholder="Sua senha"
+            class="w-full px-4 py-3 bg-white rounded-md placeholder:opacity-60 placeholder-[#011518] text-[#011518] focus:outline-none focus:ring-2 focus:ring-[#011518] pr-12"
           />
+
+          <button
+            type="button"
+            (click)="mostrarSenha = !mostrarSenha"
+            class="absolute right-3 top-[42px] text-[#011518]"
+          >
+            <svg *ngIf="!mostrarSenha" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+
+            <svg *ngIf="mostrarSenha" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.956 9.956 0 012.042-3.368m3.122-2.472A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.956 9.956 0 01-1.299 2.223M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18"/>
+            </svg>
+          </button>
+
           <div *ngIf="form.get('password')?.invalid && (form.get('password')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
             Senha é obrigatória.
           </div>
         </div>
 
+        <!-- Botão entrar -->
         <button
           type="submit"
-          class="group relative w-full flex justify-center py-3 px-6 border border-transparent text-white font-bold rounded-md bg-[#011518] hover:bg-[#0d2a31] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#d8e5f3] transition"
+          [disabled]="carregando"
+          class="w-full bg-[#011518] hover:bg-[#0d2a31] text-white font-semibold py-3 rounded transition flex items-center justify-center"
         >
-          Entrar
+          <svg *ngIf="carregando" class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+               viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
+          </svg>
+          {{ carregando ? 'Entrando...' : 'Entrar' }}
         </button>
 
+        <!-- Erro -->
         <div *ngIf="erro" class="mt-4 text-red-600 text-center font-semibold">
           {{ erro }}
         </div>
-      </form>
 
-      <p class="mt-6 text-center text-[#011518]">
-        Não tem conta?
-        <a routerLink="/registro" class="font-semibold hover:underline hover:text-[#0d2a31]"> Registre-se</a>
+        <!-- Link para registro -->
+        <p class="mt-6 text-center text-[#011518]">
+          Não tem conta?
+          <a routerLink="/registro" class="font-semibold hover:underline hover:text-[#0d2a31]">Registre-se</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Coluna direita: Logo -->
+  <div class="hidden md:flex w-1/2 bg-[#011518] items-center justify-center">
+    <div class="flex flex-col items-center space-y-4 px-4">
+      <img src="assets/images/logo.png" alt="Logo"
+           class="w-80 h-80 object-contain drop-shadow-2xl" />
+      <h1 class="text-3xl font-extrabold text-[#d8e5f3] text-center">
+        Acesse sua conta
+      </h1>
+      <p class="text-[#d8e5f3] text-center max-w-sm">
+        Gerencie os apontamentos da sua equipe de forma rápida, fácil e segura.
       </p>
     </div>
   </div>

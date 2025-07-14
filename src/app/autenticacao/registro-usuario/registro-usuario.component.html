@@ -1,90 +1,111 @@
-<div class="min-h-screen flex items-center justify-center bg-[#011518] px-4">
-  <div class="max-w-md w-full space-y-8">
-
-    <div class="flex justify-center mb-10">
-      <div class="w-56 h-56 rounded-full overflow-hidden shadow-lg flex items-center justify-center">
-        <img src="assets/images/logo.png" alt="Logo" class="w-full h-full object-cover" />
-      </div>
+<div class="min-h-screen flex bg-[#011518] text-[#011518] py-12">
+  <!-- Coluna esquerda: Logo -->
+  <div class="hidden md:flex w-1/2 bg-[#011518] items-center justify-center">
+    <div class="flex flex-col items-center space-y-4 px-4">
+      <img src="assets/images/logo.png" alt="Logo"
+           class="w-72 h-72 object-contain drop-shadow-2xl" />
+      <h1 class="text-3xl font-extrabold text-[#d8e5f3] text-center">
+        Bem-vindo ao Tempus!
+      </h1>
+      <p class="text-[#d8e5f3] text-center max-w-sm">
+        Registre-se para começar a gerenciar os pontos da sua equipe com eficiência.
+      </p>
     </div>
+  </div>
 
-    <div class="bg-[#d8e5f3] rounded-xl shadow-xl p-8">
-      <h2 class="text-center text-[#011518] font-extrabold text-3xl mb-6">Registro</h2>
+  <!-- Coluna direita: Formulário -->
+  <div class="w-full md:w-1/2 flex items-center justify-center px-4">
+    <div class="bg-[#d8e5f3] rounded-xl shadow-xl p-6 w-full max-w-md">
+      <h2 class="text-center text-[#011518] font-extrabold text-2xl mb-4">Registre-se</h2>
 
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="space-y-6">
-
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="space-y-4">
+        <!-- Nome -->
         <div>
-          <label for="name" class="block text-[#011518] font-semibold mb-2">Nome</label>
-          <input
-            id="name"
-            type="text"
-            formControlName="name"
-            placeholder="Seu nome"
-            class="appearance-none rounded-md relative block w-full px-4 py-3 text-[#011518] placeholder-[#011518] bg-white focus:outline-none focus:ring-2 focus:ring-[#011518] focus:border-transparent"
-          />
+          <label for="name" class="block font-semibold mb-1">Nome</label>
+          <input id="name" type="text" formControlName="name"
+                 placeholder="Seu nome"
+                 class="w-full px-3 py-2 bg-white rounded-md placeholder-[#011518] text-[#011518] focus:outline-none placeholder:opacity-60 focus:ring-2 focus:ring-[#011518]"/>
           <div *ngIf="form.get('name')?.invalid && (form.get('name')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
             Nome é obrigatório.
           </div>
         </div>
 
+        <!-- Email -->
         <div>
-          <label for="email" class="block text-[#011518] font-semibold mb-2">Email</label>
-          <input
-            id="email"
-            type="email"
-            formControlName="email"
-            placeholder="Seu email"
-            class="appearance-none rounded-md relative block w-full px-4 py-3 text-[#011518] placeholder-[#011518] bg-white focus:outline-none focus:ring-2 focus:ring-[#011518] focus:border-transparent"
-          />
+          <label for="email" class="block font-semibold mb-1">Email</label>
+          <input id="email" type="email" formControlName="email"
+                 placeholder="Seu email"
+                 class="w-full px-3 py-2 bg-white rounded-md placeholder-[#011518] placeholder:opacity-60 text-[#011518] focus:outline-none focus:ring-2 focus:ring-[#011518]"/>
           <div *ngIf="form.get('email')?.invalid && (form.get('email')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
             Email inválido.
           </div>
         </div>
 
-        <div>
-          <label for="password" class="block text-[#011518] font-semibold mb-2">Senha</label>
-          <input
-            id="password"
-            type="password"
-            formControlName="password"
-            placeholder="Sua senha"
-            class="appearance-none rounded-md relative block w-full px-4 py-3 text-[#011518] placeholder-[#011518] bg-white focus:outline-none focus:ring-2 focus:ring-[#011518] focus:border-transparent"
-          />
+        <!-- Senha -->
+        <div class="relative">
+          <label for="password" class="block font-semibold mb-1">Senha</label>
+          <input id="password" [type]="mostrarSenha ? 'text' : 'password'" formControlName="password"
+                 placeholder="Sua senha"
+                 class="w-full px-3 py-2 bg-white placeholder:opacity-60 rounded-md placeholder-[#011518] text-[#011518] focus:outline-none focus:ring-2 focus:ring-[#011518] pr-10"/>
+          <!-- ícone -->
+          <button type="button" (click)="mostrarSenha = !mostrarSenha" class="absolute right-3 top-[38px] text-[#011518]">
+            <svg *ngIf="!mostrarSenha" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+            <svg *ngIf="mostrarSenha" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.956 9.956 0 012.042-3.368m3.122-2.472A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.956 9.956 0 01-1.299 2.223M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18"/>
+            </svg>
+          </button>
+          <!-- Mensagens -->
           <div *ngIf="form.get('password')?.invalid && (form.get('password')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
-            Senha é obrigatória.
+            <div *ngIf="form.get('password')?.errors?.['required']">Senha é obrigatória.</div>
+            <div *ngIf="form.get('password')?.errors?.['minlength']">Mínimo de 8 caracteres.</div>
+            <div *ngIf="form.get('password')?.errors?.['pattern']">Deve conter ao menos 1 caractere especial.</div>
           </div>
         </div>
 
+        <!-- CEP -->
         <div>
-          <label for="cep" class="block text-[#011518] font-semibold mb-2">CEP</label>
-          <input
-            id="cep"
-            type="text"
-            formControlName="cep"
-            placeholder="Seu CEP"
-            class="appearance-none rounded-md relative block w-full px-4 py-3 text-[#011518] placeholder-[#011518] bg-white focus:outline-none focus:ring-2 focus:ring-[#011518] focus:border-transparent"
-          />
+          <label for="cep" class="block font-semibold mb-1">CEP</label>
+          <input id="cep" type="text" formControlName="cep" mask="00000-000"
+                 placeholder="00000-000"
+                 class="w-full px-3 py-2 bg-white rounded-md placeholder-[#011518] placeholder:opacity-60 text-[#011518] focus:outline-none focus:ring-2 focus:ring-[#011518]"/>
           <div *ngIf="form.get('cep')?.invalid && (form.get('cep')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
             CEP é obrigatório.
           </div>
         </div>
 
-        <button
-          type="submit"
-          class="group relative w-full flex justify-center py-3 px-6 border border-transparent text-white font-bold rounded-md bg-[#011518] hover:bg-[#0d2a31] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#d8e5f3] transition"
-        >
-          Registrar
+        <!-- Botão -->
+        <button type="submit" [disabled]="carregando"
+                class="w-full bg-[#011518] hover:bg-[#0d2a31] text-white font-semibold py-2 rounded transition flex items-center justify-center">
+          <svg *ngIf="carregando" class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+               viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
+          </svg>
+          {{ carregando ? 'Registrando...' : 'Registrar' }}
         </button>
 
-        <p *ngIf="sucesso" class="mt-4 text-green-600 text-center font-semibold">
-          Usuário registrado com sucesso!
+        <!-- Popup sucesso -->
+        <div *ngIf="sucesso"
+             class="fixed top-6 right-6 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in-out">
+          ✅ Registro realizado com sucesso!
+        </div>
+
+        <!-- Link -->
+        <p class="mt-4 text-center text-[#011518] text-sm">
+          Já tem conta?
+          <a routerLink="/login" class="font-semibold hover:underline hover:text-[#0d2a31]">Faça login</a>
         </p>
-
       </form>
-
-      <p class="mt-6 text-center text-[#011518]">
-        Já tem conta?
-        <a routerLink="/login" class="font-semibold hover:underline hover:text-[#0d2a31]">Faça login</a>
-      </p>
     </div>
   </div>
 </div>
