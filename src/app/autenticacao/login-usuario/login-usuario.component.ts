@@ -42,7 +42,7 @@ export class LoginUsuarioComponent {
     if (nome) {
       localStorage.setItem('nome', nome);
     }
-    this.router.navigate(['/empresa']);
+    this.router.navigate(['/empresas']);
   } else {
     this.exibirErro('Token inválido recebido.');
   }
