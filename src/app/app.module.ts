@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AutenticacaoModule } from './autenticacao/autenticacao.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { EmpresaModule } from './empresa/empresa.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     AppRoutingModule,
     AutenticacaoModule,
     HttpClientModule,
+    EmpresaModule,
     NgxMaskDirective
   ],
   providers: [provideNgxMask()],

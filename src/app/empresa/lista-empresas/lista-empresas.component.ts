@@ -34,6 +34,6 @@ export class ListaEmpresaComponent implements OnInit {
   }
 
   irParaCadastro() {
-    this.router.navigate(['/registro-empresa']);
+    this.router.navigate(['/cadastrar-empresa']);
   }
 }
