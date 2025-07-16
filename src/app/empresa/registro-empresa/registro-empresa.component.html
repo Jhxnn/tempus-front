@@ -1,1 +1,60 @@
-<p>registro-empresa works!</p>
+<div class="min-h-screen flex items-center justify-center bg-[#011518] py-12 px-4">
+  <div class="bg-[#d8e5f3] rounded-xl shadow-xl p-8 w-full max-w-md">
+    <h2 class="text-center text-[#011518] font-extrabold text-3xl mb-6">Cadastrar Empresa</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="space-y-5">
+      <div>
+        <label class="block font-semibold mb-1" for="nome">Nome da Empresa</label>
+        <input id="nome" formControlName="nome" type="text" placeholder="Ex: Tech Corp"
+               class="w-full px-4 py-2 bg-white rounded-md placeholder-[#011518] placeholder:opacity-60 text-[#011518] focus:outline-none focus:ring-2 focus:ring-[#011518]" />
+        <div *ngIf="form.get('nome')?.invalid && (form.get('nome')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
+          Nome é obrigatório.
+        </div>
+      </div>
+
+      <!-- CNPJ -->
+      <div>
+        <label class="block font-semibold mb-1" for="cnpj">CNPJ</label>
+        <input id="cnpj" formControlName="cnpj" placeholder="Apenas números"
+               class="w-full px-4 py-2 bg-white rounded-md placeholder-[#011518] placeholder:opacity-60 text-[#011518] focus:outline-none focus:ring-2 focus:ring-[#011518]" />
+        <div *ngIf="form.get('cnpj')?.invalid && (form.get('cnpj')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
+          CNPJ inválido ou ausente.
+        </div>
+      </div>
+
+      <!-- Endereço -->
+      <div>
+        <label class="block font-semibold mb-1" for="endereco">Endereço</label>
+        <input id="endereco" formControlName="endereco" type="text" placeholder="Rua Exemplo, 123"
+               class="w-full px-4 py-2 bg-white rounded-md placeholder-[#011518] placeholder:opacity-60 text-[#011518] focus:outline-none focus:ring-2 focus:ring-[#011518]" />
+        <div *ngIf="form.get('endereco')?.invalid && (form.get('endereco')?.touched || enviado)" class="text-red-600 mt-1 text-sm">
+          Endereço é obrigatório.
+        </div>
+      </div>
+
+      <!-- Botão -->
+      <button type="submit" [disabled]="carregando"
+              class="w-full bg-[#011518] hover:bg-[#0d2a31] text-white font-semibold py-3 rounded transition flex items-center justify-center">
+        <svg *ngIf="carregando" class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+             viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
+        </svg>
+        {{ carregando ? 'Cadastrando...' : 'Cadastrar Empresa' }}
+      </button>
+
+      <!-- Popup sucesso -->
+      <div *ngIf="sucesso"
+           class="fixed top-6 right-6 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in-out">
+        ✅ Empresa cadastrada com sucesso!
+      </div>
+
+      <!-- Popup erro -->
+      <div *ngIf="erro"
+           class="fixed top-6 right-6 z-50 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in-out">
+        ❌ {{ erro }}
+      </div>
+    </form>
+  </div>
+</div>
